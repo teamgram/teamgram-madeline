@@ -41,7 +41,8 @@ class Connection extends SettingsAbstract
     /**
      * Default DC ID.
      */
-    protected int $defaultDc = 2;
+    // protected int $defaultDc = 2;
+    protected int $defaultDc = 1;
     /**
      * Default DC params.
      */

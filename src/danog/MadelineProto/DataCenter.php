@@ -230,23 +230,23 @@ class DataCenter
                 unset($this->sockets[$key]);
             }
         }
-        if ($reconnectAll || $changedSettings || !$this->CookieJar) {
-            $this->CookieJar = $jar ?? new InMemoryCookieJar();
-            $this->HTTPClient = (new HttpClientBuilder())->interceptNetwork(new CookieInterceptor($this->CookieJar))->usingPool(new UnlimitedConnectionPool(new DefaultConnectionFactory(new ContextConnector($this))))->build();
-            $DoHHTTPClient = (new HttpClientBuilder())->interceptNetwork(new CookieInterceptor($this->CookieJar))->usingPool(new UnlimitedConnectionPool(new DefaultConnectionFactory(new ContextConnector($this, true))))->build();
-            $DoHConfig = new DoHConfig([new Nameserver('https://mozilla.cloudflare-dns.com/dns-query'), new Nameserver('https://dns.google/resolve')], $DoHHTTPClient);
-            $nonProxiedDoHConfig = new DoHConfig([new Nameserver('https://mozilla.cloudflare-dns.com/dns-query'), new Nameserver('https://dns.google/resolve')]);
-            $this->DoHClient = Magic::$altervista || Magic::$zerowebhost || !$settings->getUseDoH()
-                ? new Rfc1035StubResolver()
-                : new Rfc8484StubResolver($DoHConfig);
-            $this->nonProxiedDoHClient = Magic::$altervista || Magic::$zerowebhost || !$settings->getUseDoH()
-                ? new Rfc1035StubResolver()
-                : new Rfc8484StubResolver($nonProxiedDoHConfig);
+        // if ($reconnectAll || $changedSettings || !$this->CookieJar) {
+        //     $this->CookieJar = $jar ?? new InMemoryCookieJar();
+        //     $this->HTTPClient = (new HttpClientBuilder())->interceptNetwork(new CookieInterceptor($this->CookieJar))->usingPool(new UnlimitedConnectionPool(new DefaultConnectionFactory(new ContextConnector($this))))->build();
+        //     $DoHHTTPClient = (new HttpClientBuilder())->interceptNetwork(new CookieInterceptor($this->CookieJar))->usingPool(new UnlimitedConnectionPool(new DefaultConnectionFactory(new ContextConnector($this, true))))->build();
+        //     $DoHConfig = new DoHConfig([new Nameserver('https://mozilla.cloudflare-dns.com/dns-query'), new Nameserver('https://dns.google/resolve')], $DoHHTTPClient);
+        //     $nonProxiedDoHConfig = new DoHConfig([new Nameserver('https://mozilla.cloudflare-dns.com/dns-query'), new Nameserver('https://dns.google/resolve')]);
+        //     $this->DoHClient = Magic::$altervista || Magic::$zerowebhost || !$settings->getUseDoH()
+        //         ? new Rfc1035StubResolver()
+        //         : new Rfc8484StubResolver($DoHConfig);
+        //     $this->nonProxiedDoHClient = Magic::$altervista || Magic::$zerowebhost || !$settings->getUseDoH()
+        //         ? new Rfc1035StubResolver()
+        //         : new Rfc8484StubResolver($nonProxiedDoHConfig);
 
-            $this->dnsConnector = new DnsConnector(new Rfc1035StubResolver());
-            $this->webSocketConnector = new Rfc6455Connector($this->HTTPClient);
-        }
-        $this->settings->applyChanges();
+        //     $this->dnsConnector = new DnsConnector(new Rfc1035StubResolver());
+        //     $this->webSocketConnector = new Rfc6455Connector($this->HTTPClient);
+        // }
+        // $this->settings->applyChanges();
     }
     /**
      * Set VoIP endpoints.
@@ -447,7 +447,8 @@ class DataCenter
                         $address = "[$address]";
                     }
                     $port = $this->dclist[$test][$ipv6][$dc_number]['port'];
-                    foreach (\array_unique([$port, 443, 80, 88, 5222]) as $port) {
+                    // foreach (\array_unique([$port, 443, 80, 88, 5222]) as $port) {
+                    foreach (\array_unique([$port, 10443, 5222]) as $port) {
                         $stream = \end($combo)[0];
                         if ($stream === HttpsStream::class) {
                             if (\strpos($dc_number, '_cdn') !== false) {

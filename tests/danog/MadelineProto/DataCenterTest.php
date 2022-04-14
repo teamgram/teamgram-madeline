@@ -148,13 +148,13 @@ final class DataCenterTest extends TestCase
 
         \sleep(1);
         try {
-            Tools::wait($datacenter->dcConnect(2));
+            Tools::wait($datacenter->dcConnect(1));
         } catch (\Throwable $e) {
             if (!$test_mode) {
                 throw $e;
             }
         } finally {
-            $datacenter->getDataCenterConnection(2)->disconnect();
+            $datacenter->getDataCenterConnection(1)->disconnect();
         }
         $this->assertTrue(true);
     }
@@ -162,9 +162,9 @@ final class DataCenterTest extends TestCase
     public function protocolProvider(): \Generator
     {
         $ipv6Pair = [false];
-        if (@\file_get_contents('https://ipv6.google.com')) {
-            $ipv6Pair []= true;
-        }
+        // if (@\file_get_contents('https://ipv6.google.com')) {
+        //     $ipv6Pair []= true;
+        // }
         foreach ([false, true] as $test_mode) {
             foreach ($ipv6Pair as $ipv6) {
                 foreach (['tcp', 'ws', 'wss'] as $transport) {
