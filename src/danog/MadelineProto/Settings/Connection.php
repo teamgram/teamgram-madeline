@@ -46,7 +46,7 @@ class Connection extends SettingsAbstract
     /**
      * Default DC params.
      */
-    private array $defaultDcParams = ['datacenter' => 2];
+    private array $defaultDcParams = ['datacenter' => 1];
     /**
      * Protocol identifier.
      *
