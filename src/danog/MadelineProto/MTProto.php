@@ -542,7 +542,7 @@ class MTProto extends AsyncConstruct implements TLCallback
                 // ipv4 addresses
                 1 => [
                     // The rest will be fetched using help.getConfig
-                    'ip_address' => '47.103.102.219',
+                    'ip_address' => '43.155.11.190',
                     'port' => 10443,
                     'media_only' => false,
                     'tcpo_only' => false,
@@ -555,7 +555,7 @@ class MTProto extends AsyncConstruct implements TLCallback
                 // ipv4 addresses
                 1 => [
                     // The rest will be fetched using help.getConfig
-                    'ip_address' => '47.103.102.219',
+                    'ip_address' => '43.155.11.190',
                     'port' => 10443,
                     'media_only' => false,
                     'tcpo_only' => false,
